@@ -1,5 +1,8 @@
 package lista;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -53,11 +56,11 @@ public class Principal2 {
 				mdcMain(scanner);
 			else if (opcao == 5)
 				fibonacciMain(scanner);
-			/*
 			else if (opcao == 6)
-				conversaoStringParaInteiroMain(scanner);
+				conversaoStringParaInteiroMain();
 			else if (opcao == 7)
 				conversaoDeBasesMain(scanner);
+			/*
 			else if (opcao == 8)
 				exponenciacaoMain(scanner);
 			else if (opcao == 9)
@@ -79,6 +82,78 @@ public class Principal2 {
 			*/
 		}
 		
+		
+	}
+	
+	private static void conversaoDeBasesMain(Scanner scanner) {
+		
+		try {
+			System.out.println(space);
+			System.out.println("Opção escolhida: Conversão de bases.");
+			System.out.println("Digite o número 'n' que você quer converter (em decimal):");
+			
+			int n = scanner.nextInt();
+			
+			System.out.println("Para que base deseja convertê-lo ?\n1) Binário (2).\n2) Octal (8).\n");
+			
+			int base = scanner.nextInt();
+			
+			Exercicios2 ex2 = new Exercicios2();
+			ex2.decimalPara(n, base);
+			
+			
+			
+
+		} catch (InputMismatchException e) {
+			e.printStackTrace();
+			System.out.println("ERRO: Certifique-se de ter digitado um número inteiro.");
+		} catch (InvalidNumberException e) {
+			e.printStackTrace();
+			System.out.println("ERRO: Certifique-se de ter digitado um número positivo.");
+		} catch (InvalidBaseException e) {
+			e.printStackTrace();
+			System.out.println("ERRO: Certifique-se de te digitado uma base válida.\n"
+					+ "\tAs bases válidas são: Binário (2) ou Octal (8).");
+		} catch (LargeNumberException e) {
+			e.printStackTrace();
+			System.out.println("Número muito extenso. Certifique-se de digitar um valor menor que : " + (Math.pow(2, 31)-1));
+		}
+		
+		
+		
+		
+	}
+	
+	private static void conversaoStringParaInteiroMain() {
+		
+		try {
+			System.out.println(space);
+			System.out.println("Opção escolhida: Conversão de String para inteiro. \n"
+					+ "Digite a String que deseja converter para inteiro : ");
+	
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			String string = "";
+			string = reader.readLine();
+			
+			Exercicios2 ex2 = new Exercicios2();
+			int intFromString = ex2.stringParaInteiro(string);
+			
+			System.out.println("A string " + string + " convertida para int é = " + intFromString);
+
+		} catch (InputMismatchException e) {
+			e.printStackTrace();
+			System.out.println("ERRO: Certifique-se de ter digitado um número inteiro.");
+		} catch (IOException e) {
+            e.printStackTrace();
+        } catch (ElementBeyondSizeException e) {
+			e.printStackTrace();
+			System.out.println("ERRO: A string inserida é muito grande.\nInsira uma String de até 9 caracteres.");
+		} catch (WrongSignalException e) {
+			e.printStackTrace();
+			System.out.println("ERRO: Atenção, insira uma String contendo apenas números.\n"
+					+ "\t Caso o número seja negativo, verifique se não digitou \n"
+					+ "\t o sinal do número na posição errada.");
+		}
 		
 	}
 	
@@ -170,7 +245,7 @@ public class Principal2 {
 			System.out.println("Número 'n' inválido. Certifique-se de ter digitado um número maior que 1.");
 		} catch (LargeNumberException e) {
 			e.printStackTrace();
-			System.out.println("Resultado muito extenso. Certifique-se de digitar um valor menor que : " + (Math.pow(2, 31)-1));
+			System.out.println("Número muito extenso. Certifique-se de digitar um valor menor que : " + (Math.pow(2, 31)-1));
 		} catch (InputMismatchException e) {
 			e.printStackTrace();
 			System.out.println("ERRO: Certifique-se de ter digitado um número inteiro.");

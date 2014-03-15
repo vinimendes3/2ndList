@@ -1,6 +1,7 @@
 package lista;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Exercicios2 {
@@ -88,7 +89,6 @@ public class Exercicios2 {
 		
 		return true;
 	}
-
 	
 	public int mdc(int n1, int n2) throws InvalidNumberException, LargeNumberException {
 
@@ -119,7 +119,6 @@ public class Exercicios2 {
 		
 		return n2; // no final, n2 será o MDC	
 	}
-
 	
 	public Integer[] fibonacci(int n) throws InvalidNumberException, LargeNumberException, ElementBeyondSizeException {
 		
@@ -163,6 +162,63 @@ public class Exercicios2 {
 		
 		Integer[] fibonnaciVetor = fibonacciList.toArray(new Integer[n]);
 		return fibonnaciVetor;
+	}
+	
+	public int stringParaInteiro(String string) throws ElementBeyondSizeException, WrongSignalException {
+		
+		Character[] charArray = {'-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+		List<Character> charList = Arrays.asList(charArray);
+		
+		for (int i = 0; i < string.length(); i++) {
+			if (!charList.contains(string.charAt(i))) {
+				throw new WrongSignalException();
+			}
+		}
+		
+		if (string.length() > 9) { // excede o limite de tamanho
+			throw new ElementBeyondSizeException();
+		}
+		
+		int multiplier = 1;
+		int sum = 0; // the sum of all elements. It is used to reach the final result.
+		
+		for (int i = (string.length()-1); i >= 0; i--) {
+			
+			if (string.charAt(i) == '-') {
+				if (i == 0) {
+					sum *= -1;
+					return sum;
+				} else {
+					throw new WrongSignalException();
+				}
+			}
+			
+			sum += ((string.charAt(i) - '0')*multiplier);
+			multiplier *= 10;
+			
+		}
+		
+		return sum;
+		
+	}
+
+	public int decimalPara(int n, int base) throws InvalidNumberException, InvalidBaseException, LargeNumberException {
+		
+		if (n <= 0) {
+			throw new InvalidNumberException();
+		}
+		
+		if (base != 2 && base != 8) {
+			throw new InvalidBaseException();
+		}
+		
+		if (n >= (Math.pow(2, 31)-1)) {
+			throw new LargeNumberException(); // número muito extenso
+		}
+		
+		
+		
+		
 	}
 	
 }
